@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+{% if current_user.is_authenticated %}
+<br>
+<div class="chat-container">
+
+    <h2 align="center"> <img src="{{ url_for('static', filename='img/logo.png') }}" height="100" width="500"/></h2>
+        <div id="messages" class="message-window">
+            <!-- Сообщения, загруженные при первом рендере страницы -->
+            {% for msg in messages %}
+                <div class="message-wrapper {% if msg.type == 'user' %}user-message-wrapper{% else %}server-message-wrapper{% endif %}">
+                    <div class="message-bubble {% if msg.type == 'user' %}user-message-bubble{% else %}server-message-bubble{% endif %}">
+                        <strong>{{ msg.user }}:</strong> {{ msg.msg }}
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+        <div class="input-area">
+            <input type="text" id="usernameInput" placeholder="Ваше имя" value="Пользователь">
+            <input type="text" id="messageInput" placeholder="Введите сообщение..." autofocus>
+            <button id="sendButton">Отправить</button>
+        </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.0.1/socket.io.min.js"></script>
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+
+{% else %}
+<div>
+            <h1 align = "center"> Здравствуй, дорогой гость!  </h1>
+            <h5 align = "center"> Войдите или зарегистрируйтесь чтобы воспользоваться нашим сервисом </h5>
+   <div align="center" > <img src="{{ url_for('static', filename='img/robot.png') }}" width="500"/> </div>
+</div>
+{% endif %}
+{% endblock %}

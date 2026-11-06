@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+{% if current_user.is_authenticated %}
+
+<h1 align="center">{{ book.title }}</h1><br>
+<br>
+
+<div class="scroll-box"> {{ text }} </div>
+<br>
+<a href="/library" class="btn btn-primary" style="margin-right: 10px";> Назад </a>
+
+
+
+{% else %}
+<div>
+            <h1 align = "center"> Здравствуй, дорогой гость!  </h1>
+            <h5 align = "center"> Войдите или зарегистрируйтесь чтобы воспользоваться нашим сервисом </h5>
+   <div align="center" > <img src="{{ url_for('static', filename='img/robot.png') }}" width="500"/> </div>
+</div>
+{% endif %}
+
+{% endblock %}
